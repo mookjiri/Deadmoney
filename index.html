@@ -29,29 +29,23 @@ button{cursor:pointer}
 ::-webkit-scrollbar{width:0;height:0}
 
 #app{display:none;height:100dvh}
-#app.show{display:flex}
-.sidebar-brand{display:none}
+#app.show{display:flex;flex-direction:column}
 .main-col{flex:1;display:flex;flex-direction:column;min-width:0}
-.topbar{background:var(--teal-900);color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.topbar{background:linear-gradient(135deg,var(--teal-900),var(--teal-700));color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-radius:0 0 18px 18px}
 .topbar .brand{font-family:'Kanit',sans-serif;font-weight:600;font-size:17px;display:flex;align-items:center;gap:8px}
 .topbar .user-chip{display:flex;align-items:center;gap:8px;font-size:13px;opacity:.9}
-.icon-btn{background:rgba(255,255,255,.12);border:none;color:#fff;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.icon-btn{background:rgba(255,255,255,.15);border:none;color:#fff;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px}
 .alert-strip{background:var(--warn-bg);color:var(--warn-ink,#8A5A0B);font-size:13px;padding:8px 16px;display:none;flex-shrink:0;font-weight:600}
 .alert-strip.show{display:block}
-#main{flex:1;overflow-y:auto;padding:14px 14px 90px 14px}
-.bottomnav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;overflow-x:auto;z-index:50;padding:4px 2px;gap:2px;box-shadow:0 -2px 10px rgba(0,0,0,.05)}
-.nav-btn{flex:0 0 auto;min-width:66px;background:none;border:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 8px;border-radius:10px;font-size:11px}
+#main{flex:1;overflow-y:auto;padding:14px 14px 96px 14px;width:100%;max-width:760px;margin:0 auto}
+.bottomnav{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;background:#fff;border:1px solid var(--line);border-radius:20px;display:flex;overflow-x:auto;z-index:50;padding:6px;gap:2px;box-shadow:0 8px 24px rgba(15,42,46,.14);max-width:calc(100% - 20px)}
+.nav-btn{flex:0 0 auto;min-width:62px;background:none;border:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 10px;border-radius:14px;font-size:11px;transition:.15s}
 .nav-btn .em{font-size:19px}
 .nav-btn.active{color:var(--teal-700);background:var(--teal-100)}
 
-@media(min-width:900px){
-  #app{flex-direction:row}
-  .sidebar-brand{display:flex;align-items:center;gap:8px;padding:20px 18px;font-family:'Kanit',sans-serif;font-weight:600;font-size:17px;color:var(--teal-900);border-bottom:1px solid var(--line)}
-  #sidebar{width:230px;flex-shrink:0;background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column}
-  .bottomnav{position:static;flex-direction:column;border-top:none;box-shadow:none;padding:10px;gap:2px;overflow:visible;flex:1}
-  .nav-btn{flex-direction:row;justify-content:flex-start;gap:10px;min-width:0;padding:11px 12px;font-size:13.5px;width:100%}
-  #main{padding:26px 30px 30px}
-  .topbar{display:none}
+@media(min-width:700px){
+  #main{padding:26px 24px 96px}
+  .nav-btn{min-width:78px;font-size:12px}
 }
 
 .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
@@ -170,6 +164,13 @@ input[type=range]{width:100%;accent-color:var(--teal-700)}
 .rec-card{border-left:4px solid var(--amber);background:#FFF8EC;border-radius:10px;padding:12px 14px;margin-bottom:10px}
 .rec-card b{font-size:13.5px;color:var(--amber-ink)}
 .rec-card p{margin:5px 0 0;font-size:12.5px;color:var(--ink)}
+.insight-card{border-left:4px solid var(--teal-600);background:var(--paper);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.insight-card.danger{border-left-color:var(--danger);background:var(--danger-bg)}
+.insight-card.opportunity{border-left-color:var(--amber);background:#FFF8EC}
+.insight-card.success{border-left-color:var(--good);background:var(--good-bg)}
+.insight-card .it{font-weight:700;font-size:13.5px}
+.insight-card .id{font-size:12.5px;color:var(--ink);margin-top:5px}
+.insight-card .ia{font-size:12px;color:var(--teal-700);margin-top:7px;font-weight:600}
 .sync-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:5px 10px;border-radius:20px;font-weight:600}
 .sync-badge.on{background:var(--good-bg);color:var(--good)}
 .sync-badge.off{background:#EFEEE7;color:var(--muted)}
@@ -203,10 +204,6 @@ input[type=range]{width:100%;accent-color:var(--teal-700)}
 </div>
 
 <div id="app">
-  <div id="sidebar">
-    <div class="sidebar-brand">💸 Debt Freedom</div>
-    <div class="bottomnav" id="sidenav"></div>
-  </div>
   <div class="main-col">
     <div class="topbar">
       <div class="brand">💸 Debt Freedom</div>
@@ -283,6 +280,7 @@ function uid(){ return 'id_'+Math.random().toString(36).slice(2,10)+Date.now().t
    read/write that document — set Firestore rules accordingly for real use.
    ========================================================================= */
 const FB = {app:null, db:null, ready:false};
+let FB_UNSUB = null; // unsubscribe function for the active realtime listener
 function fbConfigured(){ const c=DB&&DB.firebase; return !!(c && c.apiKey && c.projectId && c.appId && c.syncCode); }
 function initFirebase(){
   if(!fbConfigured()) { FB.ready=false; return false; }
@@ -308,6 +306,27 @@ function pushToFirebase(){
   fbDocRef().set({data: JSON.stringify(DB), updatedAt: Date.now()})
     .then(()=> setSyncStatus('on'))
     .catch(e=>{ console.error(e); setSyncStatus('error'); });
+}
+/* Keeps every device on the same "sync code" in sync automatically — no need
+   to press a manual refresh button. Falls back gracefully (stays local-only)
+   if Firebase isn't configured or the connection fails. */
+function startRealtimeSync(){
+  if(!initFirebase()) return;
+  if(FB_UNSUB) { FB_UNSUB(); FB_UNSUB = null; }
+  setSyncStatus('syncing');
+  FB_UNSUB = fbDocRef().onSnapshot(doc=>{
+    if(doc.exists && doc.data().data){
+      const remote = JSON.parse(doc.data().data);
+      const keepFb = DB.firebase; // never let a remote write override the config box we just typed into
+      DB = remote; DB.firebase = keepFb;
+      if(!Array.isArray(DB.transactions)) DB.transactions = [];
+      saveDB(true);
+      setSyncStatus('on');
+      if(SESSION_UNLOCKED && CURRENT_PAGE) ({dashboard:renderDashboard, debts:renderDebts, finance:renderFinance, plan:renderPlan, settings:renderSettings})[CURRENT_PAGE]();
+    } else {
+      setSyncStatus('on');
+    }
+  }, err=>{ console.error('Firestore realtime sync error', err); setSyncStatus('error'); });
 }
 function pullFromFirebase(showToast){
   if(!initFirebase()){ if(showToast) toast('กรุณากรอกข้อมูล Firebase ให้ครบก่อน'); return; }
@@ -402,7 +421,7 @@ function enterApp(){
   document.getElementById('tb-user').textContent = DB.profile.name;
   renderNav();
   go('dashboard');
-  if(fbConfigured()) pullFromFirebase(false);
+  if(fbConfigured()) startRealtimeSync();
 }
 function openResetModal(){
   openModal(`
@@ -424,12 +443,11 @@ function doReset(){
 function renderNav(){
   const html = MENUS.map(m=>`<button class="nav-btn" id="nav-${m.key}" onclick="go('${m.key}')"><span class="em">${m.em}</span>${m.label}</button>`).join('');
   document.getElementById('bottomnav').innerHTML = html;
-  document.getElementById('sidenav').innerHTML = html;
 }
 function go(page){
   CURRENT_PAGE = page;
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('#nav-'+page).forEach(b=>b.classList.add('active'));
+  const nb = document.getElementById('nav-'+page); if(nb) nb.classList.add('active');
   renderAlertStrip();
   ({dashboard:renderDashboard, debts:renderDebts, finance:renderFinance, plan:renderPlan, settings:renderSettings})[page]();
   document.getElementById('main').scrollTop = 0;
@@ -519,6 +537,131 @@ function currentPlanResult(){
 }
 
 /* =========================================================================
+   SMART DEBT-FREEDOM INSIGHTS
+   ---------------------------------------------------------------------
+   Rules-based, calculated from the person's own numbers (not generic tips):
+   interest-trap detection, negotiate/consolidate opportunities, strategy
+   comparison, extra-payment sensitivity, cash-flow shortfall handling
+   (which debt is the least-bad one to ask for a payment pause on), and
+   quick-win detection. This is general educational information computed
+   from user-entered figures — not individualized financial or legal advice.
+   ========================================================================= */
+const UNSECURED_TYPES = ['บัตรเครดิต','สินเชื่อส่วนบุคคล','กยศ.','อื่นๆ'];
+const SECURED_TYPES = ['สินเชื่อรถยนต์','สินเชื่อบ้าน'];
+function annualRateOf(d){ return d.rateUnit==='month' ? Number(d.interestRate||0)*12 : Number(d.interestRate||0); }
+
+function computeDebtInsights(){
+  const insights = [];
+  const debts = activeDebts();
+  if(!debts.length) return insights;
+  const f = computeFinance();
+
+  /* 1) Interest-trap: minimum payment barely covers (or doesn't cover) the
+        interest that accrues each month, so the principal never really drops. */
+  debts.forEach(d=>{
+    const rate = monthlyRate(d);
+    const interest = d.calcMethod==='flat' ? Number(d.originalPrincipal||d.principal)*(rate/100) : Number(d.principal)*(rate/100);
+    if(d.minPayment>0 && d.minPayment <= interest*1.05){
+      const healthyPayment = Math.ceil((interest*1.15)/100)*100;
+      insights.push({type:'danger', icon:'🚨',
+        title:`"${d.name}" ติดกับดักดอกเบี้ย — จ่ายขั้นต่ำไปตลอดชีวิตก็ไม่มีวันหมด`,
+        detail:`ค่างวดขั้นต่ำ ฿${money(d.minPayment)}/เดือน แทบไม่ครอบคลุมดอกเบี้ยที่เกิดขึ้นจริงประมาณ ฿${money(Math.round(interest))}/เดือน เงินต้นจึงแทบไม่ลดลงเลย`,
+        action:`ควรจ่ายอย่างน้อย ฿${money(healthyPayment)}/เดือนสำหรับก้อนนี้ (มากกว่าดอกเบี้ยที่เกิดขึ้นจริง) มิฉะนั้นควรติดต่อเจ้าหนี้เพื่อเจรจาปรับโครงสร้างหนี้โดยเร็วที่สุด`});
+    }
+  });
+
+  /* 2) High-interest unsecured debt → realistic consolidation/negotiation estimate */
+  debts.filter(d=>UNSECURED_TYPES.includes(d.type)).forEach(d=>{
+    const annual = annualRateOf(d);
+    if(annual >= 20){
+      const estNow = d.principal*(annual/100);
+      const estLow = d.principal*0.05;
+      const estSavings = Math.max(0, estNow-estLow);
+      insights.push({type:'opportunity', icon:'💡',
+        title:`"${d.name}" ดอกเบี้ย ${annual.toFixed(1)}%/ปี — มีทางลดได้จริง`,
+        detail:`ยอดคงเหลือ ฿${money(d.principal)} ที่ดอกเบี้ยระดับนี้คิดเป็นประมาณ ฿${money(Math.round(estNow))}/ปี หากเจรจาปรับโครงสร้างหนี้ให้เหลือประมาณ 5%/ปี (เช่น โครงการรวมหนี้ของธนาคารเจ้าหนี้ หรือ "คลินิกแก้หนี้ by SAM" สำหรับผู้ค้างชำระบัตรเครดิต/สินเชื่อส่วนบุคคลเกิน 120 วัน ยอดหนี้รวมไม่เกิน 2 ล้านบาท) อาจประหยัดดอกเบี้ยได้ประมาณ ฿${money(Math.round(estSavings))}/ปี`,
+        action:`ติดต่อธนาคารเจ้าหนี้เพื่อสอบถามโครงการรวมหนี้/ปรับโครงสร้างหนี้ หรือดูเงื่อนไขคลินิกแก้หนี้ที่ www.คลินิกแก้หนี้.com หรือโทร 1443`});
+    }
+  });
+
+  /* 3) Strategy comparison: is the currently-selected strategy leaving money on the table? */
+  const avalanche = simulateDebtPayoff(debts, DB.extraPayment, 'avalanche');
+  const snowball = simulateDebtPayoff(debts, DB.extraPayment, 'snowball');
+  const better = avalanche.totalInterest <= snowball.totalInterest ? 'avalanche' : 'snowball';
+  const betterResult = better==='avalanche' ? avalanche : snowball;
+  const currentResult = DB.strategy==='avalanche' ? avalanche : (DB.strategy==='snowball' ? snowball : null);
+  if(currentResult && better!==DB.strategy){
+    const otherResult = DB.strategy==='avalanche' ? snowball : avalanche;
+    const diff = Math.max(0, otherResult.totalInterest - betterResult.totalInterest);
+    if(diff > 300){
+      insights.push({type:'opportunity', icon:'🔁',
+        title:`เปลี่ยนกลยุทธ์เป็น ${better==='avalanche'?'Avalanche':'Snowball'} จะประหยัดดอกเบี้ยเพิ่ม`,
+        detail:`ด้วยเงินโปะปัจจุบัน (฿${money(DB.extraPayment)}/เดือน) แผน ${better==='avalanche'?'Avalanche':'Snowball'} ประหยัดดอกเบี้ยรวมประมาณ ฿${money(Math.round(diff))} เมื่อเทียบกับแผน ${DB.strategy==='avalanche'?'Avalanche':'Snowball'} ที่ใช้อยู่ตอนนี้ โดยค่างวดต่อเดือนเท่าเดิม`,
+        action:`ไปที่เมนู "แผนปลดหนี้" แล้วกดเปลี่ยนกลยุทธ์`});
+    }
+  }
+
+  /* 4) Extra-payment sensitivity: what +1,000 baht/month buys you */
+  if(currentResult && currentResult.feasible){
+    const boosted = simulateDebtPayoff(debts, Number(DB.extraPayment||0)+1000, DB.strategy, DB.customOrder);
+    const monthsSaved = currentResult.months - boosted.months;
+    const interestSaved = currentResult.totalInterest - boosted.totalInterest;
+    if(monthsSaved>0){
+      insights.push({type:'opportunity', icon:'📈',
+        title:`เพิ่มเงินโปะอีก ฿1,000/เดือน ช่วยได้มากกว่าที่คิด`,
+        detail:`หากเพิ่มเงินโปะจาก ฿${money(DB.extraPayment)} เป็น ฿${money(Number(DB.extraPayment||0)+1000)}/เดือน จะปลดหนี้เร็วขึ้น ${monthLabel(monthsSaved)} และประหยัดดอกเบี้ยประมาณ ฿${money(Math.round(interestSaved))}`,
+        action:`ลองปรับ Slider เงินโปะที่เมนู "แผนปลดหนี้" ดู`});
+    }
+  }
+
+  /* 5) Cash-flow shortfall → concrete triage plan, including which debt is the
+        least-costly one to consider a payment pause on (secured debt like a
+        house/car risks repossession, so keep those current; among unsecured
+        debts, pausing the LOWEST-rate one grows the slowest while you catch up). */
+  const deficit = f.totalMinPayment - f.availableForDebt;
+  if(deficit > 0){
+    let detail;
+    if(f.cuttable >= deficit){
+      detail = `หากตัดค่าใช้จ่ายประเภท "ตัดได้" ทั้งหมด (฿${money(Math.round(f.cuttable))}) จะปิดช่องว่างนี้ได้ทันทีโดยไม่ต้องแตะหนี้ก้อนไหนเลย`;
+    } else {
+      const stillShort = deficit - f.cuttable;
+      const unsecured = debts.filter(d=>UNSECURED_TYPES.includes(d.type)).sort((a,b)=>annualRateOf(a)-annualRateOf(b));
+      const candidate = unsecured[0];
+      detail = `แม้ตัดค่าใช้จ่าย "ตัดได้" ทั้งหมด (฿${money(Math.round(f.cuttable))}) แล้ว ยังขาดอีกประมาณ ฿${money(Math.round(stillShort))}/เดือน `
+        + (candidate
+            ? `พิจารณาติดต่อเจ้าหนี้ของ "${candidate.name}" (ดอกเบี้ย ${annualRateOf(candidate).toFixed(1)}%/ปี ค่างวด ฿${money(candidate.minPayment)}/เดือน) เพื่อขอพักชำระหนี้ชั่วคราวหรือปรับโครงสร้างหนี้อย่างเป็นทางการก่อน เพราะเป็นหนี้ไม่มีหลักประกันที่ดอกเบี้ยต่ำสุดในกลุ่มนี้ — พักไว้ก่อนจะเพิ่มภาระดอกเบี้ยน้อยที่สุดเมื่อเทียบกับก้อนอื่น`
+            : `ควรติดต่อเจ้าหนี้เพื่อเจรจาปรับโครงสร้างหนี้`)
+        + ` ส่วนหนี้ที่มีหลักประกัน เช่น บ้านหรือรถยนต์ ควรพยายามชำระต่อเนื่องให้ได้มากที่สุดก่อน เพราะเสี่ยงถูกยึดทรัพย์หากผิดนัด`;
+    }
+    insights.push({type:'danger', icon:'⚠️',
+      title:`กระแสเงินสดไม่พอชำระค่างวดขั้นต่ำรวม (ขาดประมาณ ฿${money(Math.round(deficit))}/เดือน)`,
+      detail,
+      action:`สำคัญ: อย่าเงียบหายหรือหยุดจ่ายเฉยๆ เพราะจะเสียประวัติเครดิตและโดนค่าปรับ ควรแจ้งเจ้าหนี้ล่วงหน้าเสมอ — ผู้ที่ค้างชำระบัตรเครดิต/สินเชื่อส่วนบุคคลเกิน 120 วันและมีหนี้รวมไม่เกิน 2 ล้านบาท อาจเข้าเงื่อนไข "คลินิกแก้หนี้ by SAM" (ดอกเบี้ยลดเหลือ 3-5%/ปี ผ่อนได้นานสุด 10 ปี) — www.คลินิกแก้หนี้.com หรือโทร 1443`});
+  }
+
+  /* 6) Quick win: smallest debt about to close soon under the current plan */
+  if(currentResult){
+    const smallest = [...debts].sort((a,b)=>a.principal-b.principal)[0];
+    const info = currentResult.perDebt.find(p=>p.id===smallest.id);
+    if(info && info.closedMonth && info.closedMonth<=6){
+      insights.push({type:'success', icon:'🎉',
+        title:`ใกล้ปิดหนี้ก้อนแรกแล้ว!`,
+        detail:`"${smallest.name}" (คงเหลือ ฿${money(smallest.principal)}) คาดว่าจะปิดได้ภายใน ${monthLabel(info.closedMonth)} ตามแผนปัจจุบัน เมื่อปิดแล้วเงินขั้นต่ำ ฿${money(smallest.minPayment)}/เดือนจะว่างไปช่วยหนี้ก้อนถัดไปทันที`,
+        action:''});
+    }
+  }
+
+  return insights;
+}
+function debtInsightCardHTML(ins){
+  return `<div class="insight-card ${ins.type}">
+    <div class="it">${ins.icon} ${esc(ins.title)}</div>
+    <div class="id">${esc(ins.detail)}</div>
+    ${ins.action?`<div class="ia">👉 ${esc(ins.action)}</div>`:''}
+  </div>`;
+}
+
+/* =========================================================================
    DASHBOARD
    ========================================================================= */
 function renderDashboard(){
@@ -571,7 +714,14 @@ function renderDashboard(){
         <tr style="font-weight:700"><td>เงินคงเหลือสำหรับหนี้</td><td style="text-align:right">฿${money(f.availableForDebt)}</td></tr>
       </table>
       ${f.availableForDebt < f.totalMinPayment ? `<div class="check-alert show" style="margin-top:10px">เงินคงเหลือไม่พอชำระค่างวดขั้นต่ำรวม (฿${money(f.totalMinPayment)}) กรุณาทบทวนค่าใช้จ่ายที่เมนู "การเงิน"</div>` : ''}
-    </div>`;
+    </div>
+    ${debts.length ? `<div class="card">
+      <b>💡 คำแนะนำปลดหนี้อัจฉริยะ</b>
+      <div style="margin-top:10px">
+        ${(()=>{ const ins = computeDebtInsights(); return ins.length ? ins.map(debtInsightCardHTML).join('') : '<div class="hint">ยังไม่มีคำแนะนำเพิ่มเติมตอนนี้ — สถานะการเงินของคุณดูโอเคดี</div>'; })()}
+      </div>
+      <div class="hint" style="margin-top:6px">คำแนะนำเหล่านี้คำนวณจากตัวเลขที่คุณกรอกไว้ เพื่อเป็นแนวทางเบื้องต้นเท่านั้น ไม่ใช่คำแนะนำทางการเงินหรือกฎหมายจากผู้เชี่ยวชาญเฉพาะทาง ก่อนตัดสินใจสำคัญ (เช่น พักชำระหนี้ ปรับโครงสร้างหนี้) ควรปรึกษาธนาคารเจ้าหนี้โดยตรงหรือนักวางแผนการเงิน</div>
+    </div>` : ''}`;
 }
 
 /* =========================================================================
@@ -1335,9 +1485,9 @@ function renderSettings(){
     <div class="card">
       <div class="row" style="justify-content:space-between;align-items:center">
         <b>☁️ ซิงค์ข้อมูลกับ Firebase</b>
-        <span class="sync-badge ${fbConfigured()?'on':'off'}" id="sync-badge">${fbConfigured()?'⚪ ยังไม่ทดสอบการเชื่อมต่อ':'⚪ ไม่ได้เชื่อมต่อ Firebase'}</span>
+        <span class="sync-badge ${fbConfigured()?'on':'off'}" id="sync-badge">${fbConfigured()?'🔄 กำลังเชื่อมต่อ...':'⚪ ไม่ได้เชื่อมต่อ Firebase'}</span>
       </div>
-      <p class="hint">กรอกค่า config จากโปรเจกต์ Firebase ของคุณ (Firebase Console → Project settings → Your apps → SDK setup and configuration) เพื่อให้ข้อมูลซิงค์ข้ามอุปกรณ์ได้ ข้อมูลจะถูกเก็บในเอกสารเดียวที่อ้างอิงด้วย "รหัสซิงค์" ด้านล่าง — ตั้งค่า Firestore Security Rules ให้เหมาะสมด้วย เพราะระบบนี้ไม่ได้ใช้ Firebase Auth</p>
+      <p class="hint">กรอกค่า config จากโปรเจกต์ Firebase ของคุณ (Firebase Console → Project settings → Your apps → SDK setup and configuration) เพื่อให้ข้อมูลซิงค์ข้ามอุปกรณ์แบบเรียลไทม์ — พิมพ์อะไรจากเครื่องหนึ่ง อีกเครื่องที่เปิดแอปค้างไว้จะเห็นทันทีโดยไม่ต้องกดรีเฟรช ข้อมูลถูกเก็บในเอกสารเดียวที่อ้างอิงด้วย "รหัสซิงค์" ด้านล่าง — ตั้งค่า Firestore Security Rules ให้เหมาะสมด้วย เพราะระบบนี้ไม่ได้ใช้ Firebase Auth (ใครก็ตามที่รู้ config + รหัสซิงค์จะเข้าถึงข้อมูลนี้ได้ ควรตั้งรหัสซิงค์เป็นข้อความยาวๆ สุ่มเดาไม่ได้)</p>
       <label>API Key</label><input type="text" id="fb-apikey" value="${esc(DB.firebase.apiKey)}">
       <label>Auth Domain</label><input type="text" id="fb-authdomain" value="${esc(DB.firebase.authDomain)}" placeholder="yourapp.firebaseapp.com">
       <label>Project ID</label><input type="text" id="fb-projectid" value="${esc(DB.firebase.projectId)}">
@@ -1348,7 +1498,7 @@ function renderSettings(){
       <input type="text" id="fb-synccode" value="${esc(DB.firebase.syncCode)}" placeholder="เช่น somchai-family-2026">
       <div class="row wrap" style="margin-top:14px;gap:8px">
         <button class="btn btn-primary grow" onclick="saveFirebaseConfig()">บันทึกและเชื่อมต่อ</button>
-        <button class="btn btn-ghost grow" onclick="pullFromFirebase(true)">🔄 ดึงข้อมูลล่าสุด</button>
+        <button class="btn btn-ghost grow" onclick="pullFromFirebase(true)">🔄 บังคับดึงข้อมูลล่าสุด</button>
       </div>
     </div>
     <div class="card" style="border:1px solid var(--danger-bg)">
@@ -1359,7 +1509,7 @@ function renderSettings(){
     <div class="card">
       <p class="hint">Debt Freedom System — เวอร์ชัน MVP (Phase 1): จัดการรายรับ-รายจ่าย (พร้อมประวัติย้อนหลัง ตัวกรอง สรุปรายสัปดาห์/เดือน/ปี คำแนะนำสิ่งที่ควรลด และ Export Excel), จัดการหนี้หลายก้อน, Debt Calculator, กลยุทธ์ Avalanche/Snowball, Dashboard, ตารางคาดการณ์การปลดหนี้ และซิงค์ข้ามอุปกรณ์ผ่าน Firebase (ไม่บังคับ) ข้อมูลหลักเก็บไว้ในเบราว์เซอร์เครื่องนี้เสมอ (localStorage) เป็นสำเนาสำรองแม้เชื่อมต่อ Firebase อยู่</p>
     </div>`;
-  setSyncStatus(fbConfigured() ? 'off' : 'off');
+  setSyncStatus(fbConfigured() ? (window._syncStatus||'syncing') : 'off');
 }
 function saveFirebaseConfig(){
   DB.firebase = {
@@ -1374,8 +1524,8 @@ function saveFirebaseConfig(){
   saveDB(true);
   if(fbConfigured()){
     FB.app = null; /* force re-init with new config */
-    pullFromFirebase(true);
-    toast('บันทึกการตั้งค่า Firebase แล้ว');
+    startRealtimeSync();
+    toast('บันทึกการตั้งค่า Firebase แล้ว — ระบบจะซิงค์อัตโนมัติจากนี้ไป');
   } else {
     toast('บันทึกแล้ว — กรุณากรอกให้ครบทุกช่องเพื่อเปิดใช้งานการซิงค์');
   }
